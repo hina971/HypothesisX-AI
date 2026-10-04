@@ -1,4 +1,3 @@
-```python
 """HypothesisX AI - run with: streamlit run app.py"""
 
 import streamlit as st
@@ -9,7 +8,6 @@ st.set_page_config(
     layout="wide"
 )
 
-
 # ============================================================
 # STYLING
 # ============================================================
@@ -18,25 +16,24 @@ st.markdown(
     """
     <style>
 
-    /* ---------- MAIN HEADER ---------- */
-
     .hx-header {
         text-align: center;
-        padding: 28px 20px;
+        padding: 30px 20px;
         margin-bottom: 25px;
-        border-radius: 22px;
+        border-radius: 24px;
         background: linear-gradient(
             135deg,
-            rgba(99, 102, 241, 0.14),
-            rgba(168, 85, 247, 0.14),
-            rgba(236, 72, 153, 0.12)
+            rgba(99,102,241,0.15),
+            rgba(168,85,247,0.15),
+            rgba(236,72,153,0.12),
+            rgba(6,182,212,0.12)
         );
-        border: 1px solid rgba(139, 92, 246, 0.25);
-        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.10);
+        border: 1px solid rgba(139,92,246,0.25);
+        box-shadow: 0 10px 35px rgba(99,102,241,0.12);
     }
 
     .hx-title {
-        font-size: 48px;
+        font-size: 52px;
         font-weight: 800;
         margin: 0;
         background: linear-gradient(
@@ -54,7 +51,7 @@ st.markdown(
 
     .hx-subtitle {
         font-size: 17px;
-        margin-top: 8px;
+        margin-top: 10px;
         color: #64748b;
         letter-spacing: 0.5px;
     }
@@ -63,63 +60,48 @@ st.markdown(
         0% {
             background-position: 0% 50%;
         }
-
         50% {
             background-position: 100% 50%;
         }
-
         100% {
             background-position: 0% 50%;
         }
     }
-
-
-    /* ---------- TEAM HEADING ---------- */
 
     .team-heading {
         text-align: center;
         font-size: 30px;
         font-weight: 800;
         margin-top: 60px;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
 
     .team-subheading {
         text-align: center;
         color: #64748b;
+        margin-bottom: 28px;
         font-size: 15px;
-        margin-bottom: 25px;
     }
-
-
-    /* ---------- TEAM GRID ---------- */
 
     .team-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 18px;
         max-width: 950px;
-        margin: 0 auto;
+        margin: auto;
     }
-
-
-    /* ---------- TEAM CARD ---------- */
 
     .team-card {
         position: relative;
-        text-align: center;
         padding: 24px 15px;
+        text-align: center;
         border-radius: 20px;
-        background: linear-gradient(
-            145deg,
-            rgba(255,255,255,0.95),
-            rgba(248,250,252,0.90)
-        );
+        background: rgba(255,255,255,0.90);
         border: 1px solid rgba(139,92,246,0.20);
         box-shadow: 0 8px 25px rgba(15,23,42,0.08);
-        overflow: hidden;
         transition: all 0.35s ease;
         animation: floatingCard 3.5s ease-in-out infinite;
+        overflow: hidden;
     }
 
     .team-card:nth-child(2) {
@@ -144,15 +126,15 @@ st.markdown(
 
     .team-card:hover {
         transform: translateY(-10px) scale(1.03);
-        box-shadow: 0 18px 40px rgba(99,102,241,0.20);
+        box-shadow: 0 18px 40px rgba(99,102,241,0.22);
         border-color: rgba(139,92,246,0.50);
     }
 
     .team-card::before {
         content: "";
         position: absolute;
-        left: -100%;
         top: 0;
+        left: -100%;
         width: 100%;
         height: 4px;
         background: linear-gradient(
@@ -166,11 +148,10 @@ st.markdown(
     }
 
     @keyframes shine {
-        from {
+        0% {
             left: -100%;
         }
-
-        to {
+        100% {
             left: 100%;
         }
     }
@@ -179,7 +160,6 @@ st.markdown(
         0%, 100% {
             transform: translateY(0);
         }
-
         50% {
             transform: translateY(-5px);
         }
@@ -203,14 +183,11 @@ st.markdown(
         color: #8b5cf6;
     }
 
-
-    /* ---------- FOOTER ---------- */
-
     .hx-footer {
         text-align: center;
         margin-top: 55px;
-        padding: 25px;
-        border-radius: 20px;
+        padding: 28px 15px;
+        border-radius: 22px;
         background: linear-gradient(
             135deg,
             rgba(99,102,241,0.10),
@@ -226,24 +203,19 @@ st.markdown(
     }
 
     .footer-text {
-        margin-top: 6px;
-        font-size: 14px;
         color: #64748b;
+        font-size: 14px;
+        margin-top: 6px;
     }
 
-
-    /* ---------- MOBILE ---------- */
-
     @media (max-width: 700px) {
-
         .hx-title {
-            font-size: 36px;
+            font-size: 38px;
         }
 
         .team-grid {
             grid-template-columns: 1fr;
         }
-
     }
 
     </style>
@@ -259,10 +231,7 @@ st.markdown(
 st.markdown(
     """
     <div class="hx-header">
-        <div class="hx-title">
-            🧠 HypothesisX AI
-        </div>
-
+        <div class="hx-title">🧠 HypothesisX AI</div>
         <div class="hx-subtitle">
             Intelligent Hypothesis Generation & Scientific Reasoning
         </div>
@@ -330,7 +299,6 @@ choice = st.sidebar.radio(
     list(PAGES)
 )
 
-
 with st.sidebar.expander("Settings"):
 
     cfg = st.session_state["cfg"]
@@ -374,7 +342,7 @@ PAGES[choice]()
 
 
 # ============================================================
-# TEAM SECTION
+# TEAM
 # ============================================================
 
 st.markdown(
@@ -455,4 +423,3 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-```
