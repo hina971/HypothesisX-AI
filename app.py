@@ -9,6 +9,86 @@ st.set_page_config(
 )
 
 # ============================================================
+# BLACK BACKGROUND + YELLOW TEXT
+# ============================================================
+
+st.markdown(
+    """
+    <style>
+
+    /* Entire page */
+    .stApp {
+        background-color: #000000;
+        color: #FFD700;
+    }
+
+    /* Main text */
+    .stApp p,
+    .stApp span,
+    .stApp label,
+    .stApp div {
+        color: #FFD700;
+    }
+
+    /* Headings */
+    .stApp h1,
+    .stApp h2,
+    .stApp h3,
+    .stApp h4,
+    .stApp h5,
+    .stApp h6 {
+        color: #FFD700 !important;
+    }
+
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        background-color: #000000;
+    }
+
+    [data-testid="stSidebar"] * {
+        color: #FFD700 !important;
+    }
+
+    /* Inputs */
+    .stTextInput input,
+    .stNumberInput input,
+    textarea {
+        background-color: #111111 !important;
+        color: #FFD700 !important;
+        border: 1px solid #FFD700 !important;
+    }
+
+    /* Select boxes */
+    div[data-baseweb="select"] {
+        background-color: #111111 !important;
+    }
+
+    div[data-baseweb="select"] * {
+        color: #FFD700 !important;
+    }
+
+    /* Radio buttons */
+    [data-testid="stRadio"] label {
+        color: #FFD700 !important;
+    }
+
+    /* Captions */
+    .stCaption {
+        color: #FFD700 !important;
+    }
+
+    /* Dividers */
+    hr {
+        border-color: #FFD700 !important;
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+# ============================================================
 # HEADER
 # ============================================================
 
