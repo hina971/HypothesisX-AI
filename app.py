@@ -37,28 +37,28 @@ st.sidebar.title("HypothesisX AI")
 
 st.sidebar.info(
     """
-    Workflow:
+Workflow:
 
-    Data
-    ↓
-    Data Exploration
-    ↓
-    Pattern Mining
-    ↓
-    Hypothesis
-    ↓
-    Alternative Explanations
-    ↓
-    Statistical Testing
-    ↓
-    ML Validation
-    ↓
-    Robustness
-    ↓
-    Evidence Review
-    ↓
-    Next Investigation
-    """
+Data
+↓
+Data Exploration
+↓
+Pattern Mining
+↓
+Hypothesis
+↓
+Alternative Explanations
+↓
+Statistical Testing
+↓
+ML Validation
+↓
+Robustness
+↓
+Evidence Review
+↓
+Next Investigation
+"""
 )
 
 
@@ -119,6 +119,14 @@ if uploaded_file is not None:
             st.success(
                 "Analysis completed successfully!"
             )
+
+    except Exception as e:
+
+        st.error(
+            "An error occurred while processing the dataset."
+        )
+
+        st.exception(e)
 
 
 # -----------------------------
@@ -182,9 +190,7 @@ if "results" in st.session_state:
 
         missing_df = pd.DataFrame(
             list(
-                exploration[
-                    "missing_values"
-                ].items()
+                exploration["missing_values"].items()
             ),
             columns=[
                 "Column",
@@ -297,9 +303,7 @@ if "results" in st.session_state:
         "5️⃣ Alternative Explanations"
     )
 
-    alternatives = results[
-        "alternatives"
-    ]
+    alternatives = results["alternatives"]
 
     for item in alternatives:
 
