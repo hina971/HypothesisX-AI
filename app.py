@@ -1,3 +1,4 @@
+```python
 """HypothesisX AI - run with: streamlit run app.py"""
 
 import streamlit as st
@@ -10,33 +11,32 @@ st.set_page_config(
 
 
 # ============================================================
-# STYLISH HYPOXESISX AI HEADER + TEAM UI
+# STYLING
 # ============================================================
 
 st.markdown(
     """
     <style>
 
-    /* ================= HEADER ================= */
+    /* ---------- MAIN HEADER ---------- */
 
     .hx-header {
         text-align: center;
-        padding: 32px 20px 28px 20px;
+        padding: 28px 20px;
         margin-bottom: 25px;
-        border-radius: 24px;
+        border-radius: 22px;
         background: linear-gradient(
             135deg,
-            rgba(99,102,241,0.15),
-            rgba(168,85,247,0.15),
-            rgba(236,72,153,0.12),
-            rgba(6,182,212,0.12)
+            rgba(99, 102, 241, 0.14),
+            rgba(168, 85, 247, 0.14),
+            rgba(236, 72, 153, 0.12)
         );
-        border: 1px solid rgba(139,92,246,0.25);
-        box-shadow: 0 10px 35px rgba(99,102,241,0.12);
+        border: 1px solid rgba(139, 92, 246, 0.25);
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.10);
     }
 
     .hx-title {
-        font-size: 52px;
+        font-size: 48px;
         font-weight: 800;
         margin: 0;
         background: linear-gradient(
@@ -44,20 +44,19 @@ st.markdown(
             #6366f1,
             #8b5cf6,
             #ec4899,
-            #06b6d4,
-            #6366f1
+            #06b6d4
         );
+        background-size: 300% 300%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-size: 300% 300%;
         animation: gradientMove 5s ease infinite;
     }
 
     .hx-subtitle {
         font-size: 17px;
-        margin-top: 10px;
+        margin-top: 8px;
         color: #64748b;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
     }
 
     @keyframes gradientMove {
@@ -75,80 +74,87 @@ st.markdown(
     }
 
 
-    /* ================= TEAM ================= */
+    /* ---------- TEAM HEADING ---------- */
 
     .team-heading {
         text-align: center;
         font-size: 30px;
         font-weight: 800;
-        margin-top: 55px;
-        margin-bottom: 8px;
+        margin-top: 60px;
+        margin-bottom: 6px;
     }
 
     .team-subheading {
         text-align: center;
         color: #64748b;
-        margin-bottom: 28px;
         font-size: 15px;
+        margin-bottom: 25px;
     }
+
+
+    /* ---------- TEAM GRID ---------- */
 
     .team-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 18px;
         max-width: 950px;
-        margin: auto;
+        margin: 0 auto;
     }
 
 
-    /* ================= TEAM CARDS ================= */
+    /* ---------- TEAM CARD ---------- */
 
     .team-card {
         position: relative;
-        padding: 23px 15px;
         text-align: center;
+        padding: 24px 15px;
         border-radius: 20px;
-        background: rgba(255,255,255,0.78);
-        border: 1px solid rgba(139,92,246,0.18);
+        background: linear-gradient(
+            145deg,
+            rgba(255,255,255,0.95),
+            rgba(248,250,252,0.90)
+        );
+        border: 1px solid rgba(139,92,246,0.20);
         box-shadow: 0 8px 25px rgba(15,23,42,0.08);
-        transition: all 0.35s ease;
-        animation: cardFloat 3.5s ease-in-out infinite;
         overflow: hidden;
+        transition: all 0.35s ease;
+        animation: floatingCard 3.5s ease-in-out infinite;
     }
 
     .team-card:nth-child(2) {
-        animation-delay: 0.25s;
+        animation-delay: 0.3s;
     }
 
     .team-card:nth-child(3) {
-        animation-delay: 0.50s;
+        animation-delay: 0.6s;
     }
 
     .team-card:nth-child(4) {
-        animation-delay: 0.75s;
+        animation-delay: 0.9s;
     }
 
     .team-card:nth-child(5) {
-        animation-delay: 1.00s;
+        animation-delay: 1.2s;
     }
 
     .team-card:nth-child(6) {
-        animation-delay: 1.25s;
+        animation-delay: 1.5s;
     }
 
     .team-card:hover {
         transform: translateY(-10px) scale(1.03);
-        box-shadow: 0 18px 40px rgba(99,102,241,0.22);
-        border-color: rgba(139,92,246,0.45);
+        box-shadow: 0 18px 40px rgba(99,102,241,0.20);
+        border-color: rgba(139,92,246,0.50);
     }
 
     .team-card::before {
         content: "";
         position: absolute;
-        top: 0;
         left: -100%;
+        top: 0;
         width: 100%;
-        height: 3px;
+        height: 4px;
         background: linear-gradient(
             90deg,
             #6366f1,
@@ -160,18 +166,18 @@ st.markdown(
     }
 
     @keyframes shine {
-        0% {
+        from {
             left: -100%;
         }
 
-        100% {
+        to {
             left: 100%;
         }
     }
 
-    @keyframes cardFloat {
+    @keyframes floatingCard {
         0%, 100% {
-            transform: translateY(0px);
+            transform: translateY(0);
         }
 
         50% {
@@ -180,12 +186,12 @@ st.markdown(
     }
 
     .member-icon {
-        font-size: 30px;
+        font-size: 32px;
         margin-bottom: 8px;
     }
 
     .member-name {
-        font-size: 17px;
+        font-size: 18px;
         font-weight: 700;
         color: #1e293b;
     }
@@ -193,24 +199,24 @@ st.markdown(
     .member-role {
         margin-top: 5px;
         font-size: 13px;
-        color: #8b5cf6;
         font-weight: 600;
+        color: #8b5cf6;
     }
 
 
-    /* ================= FOOTER ================= */
+    /* ---------- FOOTER ---------- */
 
     .hx-footer {
         text-align: center;
         margin-top: 55px;
-        padding: 28px 15px;
-        border-radius: 22px;
+        padding: 25px;
+        border-radius: 20px;
         background: linear-gradient(
             135deg,
             rgba(99,102,241,0.10),
             rgba(236,72,153,0.10)
         );
-        border-top: 1px solid rgba(139,92,246,0.18);
+        border-top: 1px solid rgba(139,92,246,0.20);
     }
 
     .footer-title {
@@ -220,18 +226,18 @@ st.markdown(
     }
 
     .footer-text {
-        color: #64748b;
-        font-size: 14px;
         margin-top: 6px;
+        font-size: 14px;
+        color: #64748b;
     }
 
 
-    /* ================= MOBILE ================= */
+    /* ---------- MOBILE ---------- */
 
     @media (max-width: 700px) {
 
         .hx-title {
-            font-size: 38px;
+            font-size: 36px;
         }
 
         .team-grid {
@@ -241,12 +247,18 @@ st.markdown(
     }
 
     </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
-    <!-- HEADER -->
+# ============================================================
+# HEADER
+# ============================================================
 
+st.markdown(
+    """
     <div class="hx-header">
-
         <div class="hx-title">
             🧠 HypothesisX AI
         </div>
@@ -254,30 +266,31 @@ st.markdown(
         <div class="hx-subtitle">
             Intelligent Hypothesis Generation & Scientific Reasoning
         </div>
-
     </div>
-
     """,
     unsafe_allow_html=True
 )
 
 
 # ============================================================
-# YOUR EXISTING IMPORTS
+# EXISTING APP IMPORTS
 # ============================================================
 
 from ui import state
+
 from ui.analysis_pages import (
     render_hypotheses,
     render_ml,
     render_patterns,
     render_statistical
 )
+
 from ui.dashboard import (
     render_dashboard,
     render_exploration,
     render_upload
 )
+
 from ui.discovery_page import render_discovery
 from ui.evidence_page import render_evidence
 from ui.robustness_page import render_robustness
@@ -307,15 +320,16 @@ PAGES = {
 
 state.init_state()
 
+
+# ============================================================
+# SIDEBAR
+# ============================================================
+
 choice = st.sidebar.radio(
     "Navigate",
     list(PAGES)
 )
 
-
-# ============================================================
-# SETTINGS
-# ============================================================
 
 with st.sidebar.expander("Settings"):
 
@@ -370,7 +384,7 @@ st.markdown(
     </div>
 
     <div class="team-subheading">
-        Developed by Hina Ramzan & Team
+        Developed by Hina Ramzan &amp; Team
     </div>
 
     <div class="team-grid">
@@ -412,10 +426,17 @@ st.markdown(
         </div>
 
     </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
-    <!-- FOOTER -->
+# ============================================================
+# FOOTER
+# ============================================================
 
+st.markdown(
+    """
     <div class="hx-footer">
 
         <div class="footer-title">
@@ -423,7 +444,7 @@ st.markdown(
         </div>
 
         <div class="footer-text">
-            Developed by Hina Ramzan & Team
+            Developed by Hina Ramzan &amp; Team
         </div>
 
         <div class="footer-text">
@@ -434,3 +455,4 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+```
