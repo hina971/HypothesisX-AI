@@ -1,20 +1,11 @@
 ```python
 import os
+
 from dotenv import load_dotenv
 from openai import OpenAI
 
 
 class LLMReasoningAgent:
-    """
-    LLM-based reasoning layer for HypothesisX AI.
-
-    Generates:
-    - Main hypothesis
-    - Null hypothesis
-    - Alternative explanations
-    - Confounding factors
-    - Interpretation
-    """
 
     def __init__(self):
         load_dotenv()
@@ -46,14 +37,7 @@ class LLMReasoningAgent:
         sample_size=None,
         **kwargs
     ):
-        """
-        Generate hypotheses and alternative explanations.
 
-        Accepts the named arguments sent by app.py.
-        """
-
-        # If the application sends a complete pattern instead,
-        # use that as the main information.
         if pattern is not None:
             pattern_text = str(pattern)
         else:
@@ -75,9 +59,7 @@ Analyze the following discovered pattern:
 
 {pattern_text}
 
-Your task is to generate scientifically careful reasoning.
-
-Provide the following sections:
+Generate the following:
 
 1. Main Hypothesis
 Write one clear and testable hypothesis.
@@ -86,13 +68,13 @@ Write one clear and testable hypothesis.
 Write the corresponding null hypothesis.
 
 3. Alternative Explanations
-Provide 2-4 possible explanations for the observed pattern.
+Provide 2-4 possible alternative explanations.
 
 4. Confounding Factors
 Identify variables that could influence the observed relationship.
 
 5. Interpretation
-Explain what the observed pattern could mean in simple language.
+Explain the pattern in simple language.
 
 6. Recommended Next Step
 Suggest what statistical or experimental validation should be
@@ -101,7 +83,6 @@ performed next.
 IMPORTANT:
 - Do not claim that the hypothesis is proven.
 - Correlation does not automatically imply causation.
-- Statistical validation is performed separately.
 - Clearly distinguish observations from hypotheses.
 """
 
@@ -112,23 +93,20 @@ IMPORTANT:
                     "role": "system",
                     "content": (
                         "You are a scientific reasoning assistant "
-                        "for hypothesis generation. Be careful, "
-                        "objective, and avoid unsupported causal claims."
-                    ),
+                        "for hypothesis generation. "
+                        "Be objective and avoid unsupported causal claims."
+                    )
                 },
                 {
                     "role": "user",
-                    "content": prompt,
-                },
+                    "content": prompt
+                }
             ],
-            temperature=0.3,
+            temperature=0.3
         )
 
         return response.choices[0].message.content
 
     def run(self, pattern):
-        """
-        Compatibility method for the main application.
-        """
         return self.generate_reasoning(pattern=pattern)
 ```
