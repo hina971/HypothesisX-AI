@@ -8,183 +8,20 @@ st.set_page_config(
     layout="wide"
 )
 
-
-# ============================================================
-# UI STYLING
-# ============================================================
-
-st.markdown(
-    """
-    <style>
-
-    /* MAIN HEADER */
-    .hx-header {
-        padding: 30px;
-        margin-bottom: 30px;
-        border-radius: 22px;
-        text-align: center;
-        background: linear-gradient(
-            120deg,
-            #eef2ff,
-            #f5e8ff,
-            #fce7f3,
-            #e0f7fa
-        );
-        border: 1px solid #ddd6fe;
-        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.12);
-    }
-
-    .hx-title {
-        font-size: 44px;
-        font-weight: 900;
-        color: #4f46e5;
-        margin-bottom: 8px;
-    }
-
-    .hx-subtitle {
-        font-size: 17px;
-        color: #475569;
-        font-weight: 500;
-    }
-
-
-    /* TEAM SECTION */
-    .team-heading {
-        margin-top: 55px;
-        text-align: center;
-        font-size: 30px;
-        font-weight: 900;
-        color: #6366f1;
-    }
-
-    .team-subheading {
-        text-align: center;
-        color: #64748b;
-        margin-top: 6px;
-        margin-bottom: 25px;
-        font-size: 15px;
-    }
-
-    .team-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .team-card {
-        text-align: center;
-        padding: 25px 15px;
-        border-radius: 20px;
-        background: #ffffff;
-        border: 1px solid #ddd6fe;
-        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
-    }
-
-    .member-icon {
-        font-size: 34px;
-        margin-bottom: 8px;
-    }
-
-    .member-name {
-        font-size: 18px;
-        font-weight: 800;
-        color: #1e293b;
-    }
-
-    .member-role {
-        margin-top: 5px;
-        font-size: 13px;
-        font-weight: 700;
-        color: #7c3aed;
-    }
-
-
-    /* FOOTER */
-    .hx-footer {
-        margin-top: 60px;
-        padding: 30px 20px;
-        text-align: center;
-        border-radius: 22px;
-        background: linear-gradient(
-            120deg,
-            #eef2ff,
-            #f5e8ff,
-            #fce7f3,
-            #e0f7fa
-        );
-        border: 1px solid #ddd6fe;
-        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.10);
-    }
-
-    .footer-title {
-        font-size: 25px;
-        font-weight: 900;
-        color: #6366f1;
-    }
-
-    .footer-text {
-        margin-top: 7px;
-        color: #475569;
-        font-size: 14px;
-    }
-
-    .footer-tagline {
-        margin-top: 12px;
-        font-size: 14px;
-        font-weight: 700;
-        color: #8b5cf6;
-    }
-
-    .footer-copy {
-        margin-top: 12px;
-        font-size: 12px;
-        color: #94a3b8;
-    }
-
-
-    /* MOBILE */
-    @media (max-width: 700px) {
-
-        .hx-title {
-            font-size: 34px;
-        }
-
-        .hx-subtitle {
-            font-size: 14px;
-        }
-
-        .team-grid {
-            grid-template-columns: 1fr;
-        }
-
-    }
-
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
 # ============================================================
 # HEADER
 # ============================================================
 
-st.markdown(
-    """
-    <div class="hx-header">
-        <div class="hx-title">
-            🧠 HypothesisX AI
-        </div>
+st.title("🧠 HypothesisX AI")
+st.subheader("Intelligent Hypothesis Generation & Scientific Reasoning")
 
-        <div class="hx-subtitle">
-            Intelligent Hypothesis Generation &amp; Scientific Reasoning
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True
+st.write(
+    "Find patterns in your data, turn them into hypotheses, "
+    "stress-test them and review the evidence. "
+    "Results are evidence-supported hypotheses, not proven causes."
 )
+
+st.divider()
 
 
 # ============================================================
@@ -245,7 +82,6 @@ choice = st.sidebar.radio(
     list(PAGES)
 )
 
-
 with st.sidebar.expander("Settings"):
 
     cfg = st.session_state["cfg"]
@@ -289,88 +125,51 @@ PAGES[choice]()
 
 
 # ============================================================
-# TEAM SECTION
+# TEAM
 # ============================================================
 
-st.markdown(
-    """
-    <div class="team-heading">
-        👥 Meet the Team
-    </div>
+st.divider()
 
-    <div class="team-subheading">
-        Developed by Hina Ramzan &amp; Team
-    </div>
+st.header("👥 Meet the Team")
+st.write("Developed by Hina Ramzan & Team")
 
-    <div class="team-grid">
+col1, col2, col3 = st.columns(3)
 
-        <div class="team-card">
-            <div class="member-icon">👑</div>
-            <div class="member-name">Hina Ramzan</div>
-            <div class="member-role">Team Leader</div>
-        </div>
+with col1:
+    st.subheader("👑 Hina Ramzan")
+    st.caption("Team Leader")
 
-        <div class="team-card">
-            <div class="member-icon">💡</div>
-            <div class="member-name">Fayaz Ali</div>
-            <div class="member-role">Team Member</div>
-        </div>
+with col2:
+    st.subheader("💡 Fayaz Ali")
+    st.caption("Team Member")
 
-        <div class="team-card">
-            <div class="member-icon">🔬</div>
-            <div class="member-name">Moin Afzal</div>
-            <div class="member-role">Team Member</div>
-        </div>
+with col3:
+    st.subheader("🔬 Moin Afzal")
+    st.caption("Team Member")
 
-        <div class="team-card">
-            <div class="member-icon">⚡</div>
-            <div class="member-name">Shabab Ali</div>
-            <div class="member-role">Team Member</div>
-        </div>
 
-        <div class="team-card">
-            <div class="member-icon">🚀</div>
-            <div class="member-name">Arbab Ali</div>
-            <div class="member-role">Team Member</div>
-        </div>
+col4, col5, col6 = st.columns(3)
 
-        <div class="team-card">
-            <div class="member-icon">🧠</div>
-            <div class="member-name">Absar Ahmed</div>
-            <div class="member-role">Team Member</div>
-        </div>
+with col4:
+    st.subheader("⚡ Shabab Ali")
+    st.caption("Team Member")
 
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+with col5:
+    st.subheader("🚀 Arbab Ali")
+    st.caption("Team Member")
+
+with col6:
+    st.subheader("🧠 Absar Ahmed")
+    st.caption("Team Member")
 
 
 # ============================================================
 # FOOTER
 # ============================================================
 
-st.markdown(
-    """
-    <div class="hx-footer">
+st.divider()
 
-        <div class="footer-title">
-            🧠 HypothesisX AI
-        </div>
-
-        <div class="footer-text">
-            Developed by <strong>Hina Ramzan &amp; Team</strong>
-        </div>
-
-        <div class="footer-tagline">
-            ✦ Intelligent • Scientific • Data-Driven ✦
-        </div>
-
-        <div class="footer-copy">
-            © 2026 HypothesisX AI • Scientific Discovery Platform
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.caption("🧠 HypothesisX AI")
+st.caption("Developed by Hina Ramzan & Team")
+st.caption("✦ Intelligent • Scientific • Data-Driven ✦")
+st.caption("© 2026 HypothesisX AI • Scientific Discovery Platform")
