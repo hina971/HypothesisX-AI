@@ -5,58 +5,27 @@ import streamlit as st
 st.set_page_config(
     page_title="HypothesisX AI",
     page_icon="🧠",
-    layout="wide"
+    layout="wide",
 )
-
-# ============================================================
-# STYLING
-# ============================================================
 
 st.markdown(
     """
     <style>
 
-    .hx-header {
-        text-align: center;
-        padding: 30px 20px;
-        margin-bottom: 25px;
-        border-radius: 24px;
-        background: linear-gradient(
-            135deg,
-            rgba(99,102,241,0.15),
-            rgba(168,85,247,0.15),
-            rgba(236,72,153,0.12),
-            rgba(6,182,212,0.12)
-        );
-        border: 1px solid rgba(139,92,246,0.25);
-        box-shadow: 0 10px 35px rgba(99,102,241,0.12);
+    /* ================================
+       GLOBAL
+       ================================ */
+
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
     }
 
-    .hx-title {
-        font-size: 52px;
-        font-weight: 800;
-        margin: 0;
-        background: linear-gradient(
-            90deg,
-            #6366f1,
-            #8b5cf6,
-            #ec4899,
-            #06b6d4
-        );
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: gradientMove 5s ease infinite;
-    }
+    /* ================================
+       ANIMATIONS
+       ================================ */
 
-    .hx-subtitle {
-        font-size: 17px;
-        margin-top: 10px;
-        color: #64748b;
-        letter-spacing: 0.5px;
-    }
-
-    @keyframes gradientMove {
+    @keyframes gradientFlow {
         0% {
             background-position: 0% 50%;
         }
@@ -68,154 +37,427 @@ st.markdown(
         }
     }
 
-    .team-heading {
-        text-align: center;
-        font-size: 30px;
-        font-weight: 800;
-        margin-top: 60px;
-        margin-bottom: 8px;
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-8px);
+        }
     }
 
-    .team-subheading {
-        text-align: center;
-        color: #64748b;
-        margin-bottom: 28px;
-        font-size: 15px;
-    }
-
-    .team-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-        max-width: 950px;
-        margin: auto;
-    }
-
-    .team-card {
-        position: relative;
-        padding: 24px 15px;
-        text-align: center;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.90);
-        border: 1px solid rgba(139,92,246,0.20);
-        box-shadow: 0 8px 25px rgba(15,23,42,0.08);
-        transition: all 0.35s ease;
-        animation: floatingCard 3.5s ease-in-out infinite;
-        overflow: hidden;
-    }
-
-    .team-card:nth-child(2) {
-        animation-delay: 0.3s;
-    }
-
-    .team-card:nth-child(3) {
-        animation-delay: 0.6s;
-    }
-
-    .team-card:nth-child(4) {
-        animation-delay: 0.9s;
-    }
-
-    .team-card:nth-child(5) {
-        animation-delay: 1.2s;
-    }
-
-    .team-card:nth-child(6) {
-        animation-delay: 1.5s;
-    }
-
-    .team-card:hover {
-        transform: translateY(-10px) scale(1.03);
-        box-shadow: 0 18px 40px rgba(99,102,241,0.22);
-        border-color: rgba(139,92,246,0.50);
-    }
-
-    .team-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 4px;
-        background: linear-gradient(
-            90deg,
-            #6366f1,
-            #8b5cf6,
-            #ec4899,
-            #06b6d4
-        );
-        animation: shine 3s linear infinite;
+    @keyframes glow {
+        0%, 100% {
+            box-shadow: 0 0 15px rgba(99,102,241,0.20);
+        }
+        50% {
+            box-shadow: 0 0 35px rgba(236,72,153,0.40);
+        }
     }
 
     @keyframes shine {
         0% {
-            left: -100%;
+            left: -120%;
         }
         100% {
-            left: 100%;
+            left: 120%;
         }
     }
 
-    @keyframes floatingCard {
+    @keyframes pulse {
         0%, 100% {
-            transform: translateY(0);
+            opacity: 0.75;
         }
         50% {
-            transform: translateY(-5px);
+            opacity: 1;
         }
+    }
+
+    /* ================================
+       HEADER
+       ================================ */
+
+    .hx-header {
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        padding: 42px 25px;
+        margin-bottom: 30px;
+        border-radius: 28px;
+
+        background: linear-gradient(
+            120deg,
+            #eef2ff,
+            #f5e8ff,
+            #fce7f3,
+            #e0f2fe,
+            #ecfeff
+        );
+
+        background-size: 400% 400%;
+        animation: gradientFlow 8s ease infinite;
+
+        border: 1px solid rgba(139,92,246,0.25);
+
+        box-shadow:
+            0 15px 45px rgba(99,102,241,0.15);
+    }
+
+    .hx-header::before {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(99,102,241,0.10);
+        top: -120px;
+        left: -80px;
+    }
+
+    .hx-header::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(236,72,153,0.10);
+        bottom: -100px;
+        right: -50px;
+    }
+
+    .hx-title {
+        position: relative;
+        z-index: 2;
+
+        font-size: 54px;
+        font-weight: 900;
+        margin: 0;
+
+        background: linear-gradient(
+            90deg,
+            #4f46e5,
+            #7c3aed,
+            #db2777,
+            #0891b2,
+            #4f46e5
+        );
+
+        background-size: 300% auto;
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        animation: gradientFlow 5s ease infinite;
+    }
+
+    .hx-subtitle {
+        position: relative;
+        z-index: 2;
+
+        margin-top: 12px;
+
+        font-size: 18px;
+        font-weight: 500;
+
+        color: #475569;
+
+        letter-spacing: 0.7px;
+
+        animation: pulse 3s ease-in-out infinite;
+    }
+
+    /* ================================
+       TEAM HEADING
+       ================================ */
+
+    .team-heading {
+        text-align: center;
+
+        font-size: 34px;
+        font-weight: 900;
+
+        margin-top: 65px;
+        margin-bottom: 8px;
+
+        background: linear-gradient(
+            90deg,
+            #4f46e5,
+            #9333ea,
+            #db2777,
+            #0891b2
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .team-subheading {
+        text-align: center;
+
+        color: #64748b;
+
+        font-size: 15px;
+
+        margin-bottom: 30px;
+    }
+
+    /* ================================
+       TEAM GRID
+       ================================ */
+
+    .team-grid {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 22px;
+
+        max-width: 1000px;
+
+        margin: 0 auto;
+    }
+
+    /* ================================
+       TEAM CARD
+       ================================ */
+
+    .team-card {
+        position: relative;
+
+        overflow: hidden;
+
+        text-align: center;
+
+        padding: 30px 18px;
+
+        min-height: 175px;
+
+        border-radius: 24px;
+
+        background: rgba(255,255,255,0.94);
+
+        border: 1px solid rgba(139,92,246,0.20);
+
+        box-shadow:
+            0 10px 30px rgba(15,23,42,0.08);
+
+        animation:
+            float 4s ease-in-out infinite,
+            glow 4s ease-in-out infinite;
+
+        transition:
+            transform 0.35s ease,
+            box-shadow 0.35s ease;
+    }
+
+    .team-card:nth-child(1) {
+        border-top: 4px solid #6366f1;
+    }
+
+    .team-card:nth-child(2) {
+        border-top: 4px solid #8b5cf6;
+        animation-delay: 0.3s;
+    }
+
+    .team-card:nth-child(3) {
+        border-top: 4px solid #ec4899;
+        animation-delay: 0.6s;
+    }
+
+    .team-card:nth-child(4) {
+        border-top: 4px solid #06b6d4;
+        animation-delay: 0.9s;
+    }
+
+    .team-card:nth-child(5) {
+        border-top: 4px solid #f59e0b;
+        animation-delay: 1.2s;
+    }
+
+    .team-card:nth-child(6) {
+        border-top: 4px solid #10b981;
+        animation-delay: 1.5s;
+    }
+
+    .team-card:hover {
+        transform: translateY(-14px) scale(1.04);
+
+        box-shadow:
+            0 20px 50px rgba(99,102,241,0.25);
+    }
+
+    .team-card::after {
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        left: -120%;
+
+        width: 60%;
+        height: 100%;
+
+        transform: skewX(-25deg);
+
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.55),
+            transparent
+        );
+
+        animation: shine 4s infinite;
     }
 
     .member-icon {
-        font-size: 32px;
-        margin-bottom: 8px;
+        position: relative;
+        z-index: 2;
+
+        font-size: 42px;
+
+        margin-bottom: 12px;
+
+        animation: float 3s ease-in-out infinite;
     }
 
     .member-name {
-        font-size: 18px;
-        font-weight: 700;
+        position: relative;
+        z-index: 2;
+
+        font-size: 20px;
+
+        font-weight: 800;
+
         color: #1e293b;
     }
 
     .member-role {
-        margin-top: 5px;
+        position: relative;
+        z-index: 2;
+
+        margin-top: 7px;
+
         font-size: 13px;
-        font-weight: 600;
-        color: #8b5cf6;
+
+        font-weight: 700;
+
+        color: #7c3aed;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.8px;
     }
 
+    /* ================================
+       FOOTER
+       ================================ */
+
     .hx-footer {
+        position: relative;
+
+        overflow: hidden;
+
         text-align: center;
-        margin-top: 55px;
-        padding: 28px 15px;
-        border-radius: 22px;
+
+        margin-top: 75px;
+
+        padding: 40px 20px;
+
+        border-radius: 28px;
+
         background: linear-gradient(
-            135deg,
-            rgba(99,102,241,0.10),
-            rgba(236,72,153,0.10)
+            120deg,
+            #eef2ff,
+            #f5e8ff,
+            #fce7f3,
+            #e0f2fe
         );
-        border-top: 1px solid rgba(139,92,246,0.20);
+
+        background-size: 400% 400%;
+
+        animation: gradientFlow 8s ease infinite;
+
+        border: 1px solid rgba(139,92,246,0.25);
+
+        box-shadow:
+            0 15px 45px rgba(99,102,241,0.14);
     }
 
     .footer-title {
-        font-size: 22px;
-        font-weight: 800;
-        color: #6366f1;
+        position: relative;
+        z-index: 2;
+
+        font-size: 30px;
+
+        font-weight: 900;
+
+        background: linear-gradient(
+            90deg,
+            #4f46e5,
+            #9333ea,
+            #db2777,
+            #0891b2
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .footer-text {
-        color: #64748b;
-        font-size: 14px;
-        margin-top: 6px;
+        position: relative;
+        z-index: 2;
+
+        margin-top: 8px;
+
+        font-size: 15px;
+
+        color: #475569;
     }
 
-    @media (max-width: 700px) {
+    .footer-tagline {
+        position: relative;
+        z-index: 2;
+
+        margin-top: 15px;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        color: #7c3aed;
+
+        letter-spacing: 1px;
+    }
+
+    .footer-copy {
+        position: relative;
+        z-index: 2;
+
+        margin-top: 20px;
+
+        font-size: 12px;
+
+        color: #94a3b8;
+    }
+
+    /* ================================
+       MOBILE
+       ================================ */
+
+    @media (max-width: 800px) {
+
         .hx-title {
-            font-size: 38px;
+            font-size: 40px;
+        }
+
+        .hx-subtitle {
+            font-size: 15px;
         }
 
         .team-grid {
             grid-template-columns: 1fr;
         }
+
     }
 
     </style>
@@ -231,10 +473,15 @@ st.markdown(
 st.markdown(
     """
     <div class="hx-header">
-        <div class="hx-title">🧠 HypothesisX AI</div>
-        <div class="hx-subtitle">
-            Intelligent Hypothesis Generation & Scientific Reasoning
+
+        <div class="hx-title">
+            🧠 HypothesisX AI
         </div>
+
+        <div class="hx-subtitle">
+            Intelligent Hypothesis Generation &amp; Scientific Reasoning
+        </div>
+
     </div>
     """,
     unsafe_allow_html=True
@@ -242,7 +489,7 @@ st.markdown(
 
 
 # ============================================================
-# EXISTING APP IMPORTS
+# IMPORT PROJECT MODULES
 # ============================================================
 
 from ui import state
@@ -284,7 +531,7 @@ PAGES = {
 
 
 # ============================================================
-# APP STATE
+# INITIALIZE STATE
 # ============================================================
 
 state.init_state()
@@ -298,6 +545,7 @@ choice = st.sidebar.radio(
     "Navigate",
     list(PAGES)
 )
+
 
 with st.sidebar.expander("Settings"):
 
@@ -335,14 +583,14 @@ with st.sidebar.expander("Settings"):
 
 
 # ============================================================
-# RUN SELECTED PAGE
+# SELECTED PAGE
 # ============================================================
 
 PAGES[choice]()
 
 
 # ============================================================
-# TEAM
+# TEAM SECTION
 # ============================================================
 
 st.markdown(
@@ -412,11 +660,15 @@ st.markdown(
         </div>
 
         <div class="footer-text">
-            Developed by Hina Ramzan &amp; Team
+            Developed by <strong>Hina Ramzan &amp; Team</strong>
         </div>
 
-        <div class="footer-text">
-            Intelligent • Scientific • Data-Driven
+        <div class="footer-tagline">
+            ✦ Intelligent • Scientific • Data-Driven ✦
+        </div>
+
+        <div class="footer-copy">
+            © 2026 HypothesisX AI • Scientific Discovery Platform
         </div>
 
     </div>
