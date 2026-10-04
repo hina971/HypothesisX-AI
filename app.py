@@ -5,141 +5,53 @@ import streamlit as st
 st.set_page_config(
     page_title="HypothesisX AI",
     page_icon="🧠",
-    layout="wide",
+    layout="wide"
 )
+
+
+# ============================================================
+# BEAUTIFUL UI STYLING
+# ============================================================
 
 st.markdown(
     """
     <style>
 
-    /* ================================
-       GLOBAL
-       ================================ */
-
-    .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-    }
-
-    /* ================================
-       ANIMATIONS
-       ================================ */
-
-    @keyframes gradientFlow {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-8px);
-        }
-    }
-
-    @keyframes glow {
-        0%, 100% {
-            box-shadow: 0 0 15px rgba(99,102,241,0.20);
-        }
-        50% {
-            box-shadow: 0 0 35px rgba(236,72,153,0.40);
-        }
-    }
-
-    @keyframes shine {
-        0% {
-            left: -120%;
-        }
-        100% {
-            left: 120%;
-        }
-    }
-
-    @keyframes pulse {
-        0%, 100% {
-            opacity: 0.75;
-        }
-        50% {
-            opacity: 1;
-        }
-    }
-
-    /* ================================
-       HEADER
-       ================================ */
+    /* ---------- MAIN HEADER ---------- */
 
     .hx-header {
-        position: relative;
-        overflow: hidden;
+        padding: 30px;
+        margin-bottom: 25px;
+        border-radius: 24px;
         text-align: center;
-        padding: 42px 25px;
-        margin-bottom: 30px;
-        border-radius: 28px;
 
         background: linear-gradient(
             120deg,
             #eef2ff,
             #f5e8ff,
             #fce7f3,
-            #e0f2fe,
-            #ecfeff
+            #e0f7fa,
+            #eef2ff
         );
 
-        background-size: 400% 400%;
-        animation: gradientFlow 8s ease infinite;
+        background-size: 300% 300%;
+        animation: hxGradient 8s ease infinite;
 
-        border: 1px solid rgba(139,92,246,0.25);
-
-        box-shadow:
-            0 15px 45px rgba(99,102,241,0.15);
-    }
-
-    .hx-header::before {
-        content: "";
-        position: absolute;
-        width: 220px;
-        height: 220px;
-        border-radius: 50%;
-        background: rgba(99,102,241,0.10);
-        top: -120px;
-        left: -80px;
-    }
-
-    .hx-header::after {
-        content: "";
-        position: absolute;
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        background: rgba(236,72,153,0.10);
-        bottom: -100px;
-        right: -50px;
+        border: 1px solid rgba(99, 102, 241, 0.20);
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.12);
     }
 
     .hx-title {
-        position: relative;
-        z-index: 2;
-
-        font-size: 54px;
+        font-size: 48px;
         font-weight: 900;
-        margin: 0;
+        margin-bottom: 8px;
 
         background: linear-gradient(
             90deg,
             #4f46e5,
             #7c3aed,
             #db2777,
-            #0891b2,
-            #4f46e5
+            #0891b2
         );
 
         background-size: 300% auto;
@@ -147,37 +59,24 @@ st.markdown(
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
 
-        animation: gradientFlow 5s ease infinite;
+        animation: hxGradient 5s ease infinite;
     }
 
     .hx-subtitle {
-        position: relative;
-        z-index: 2;
-
-        margin-top: 12px;
-
-        font-size: 18px;
-        font-weight: 500;
-
+        font-size: 17px;
         color: #475569;
-
-        letter-spacing: 0.7px;
-
-        animation: pulse 3s ease-in-out infinite;
+        font-weight: 500;
     }
 
-    /* ================================
-       TEAM HEADING
-       ================================ */
+
+    /* ---------- TEAM HEADING ---------- */
 
     .team-heading {
+        margin-top: 55px;
         text-align: center;
 
-        font-size: 34px;
+        font-size: 30px;
         font-weight: 900;
-
-        margin-top: 65px;
-        margin-bottom: 8px;
 
         background: linear-gradient(
             90deg,
@@ -193,265 +92,223 @@ st.markdown(
 
     .team-subheading {
         text-align: center;
-
         color: #64748b;
-
+        margin-top: 6px;
+        margin-bottom: 25px;
         font-size: 15px;
-
-        margin-bottom: 30px;
     }
 
-    /* ================================
-       TEAM GRID
-       ================================ */
+
+    /* ---------- TEAM GRID ---------- */
 
     .team-grid {
         display: grid;
-
         grid-template-columns: repeat(3, 1fr);
-
-        gap: 22px;
-
+        gap: 18px;
         max-width: 1000px;
-
         margin: 0 auto;
     }
 
-    /* ================================
-       TEAM CARD
-       ================================ */
+
+    /* ---------- TEAM CARD ---------- */
 
     .team-card {
         position: relative;
-
         overflow: hidden;
 
         text-align: center;
 
-        padding: 30px 18px;
+        padding: 25px 15px;
 
-        min-height: 175px;
+        border-radius: 20px;
 
-        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.96);
 
-        background: rgba(255,255,255,0.94);
-
-        border: 1px solid rgba(139,92,246,0.20);
+        border: 1px solid rgba(139, 92, 246, 0.20);
 
         box-shadow:
-            0 10px 30px rgba(15,23,42,0.08);
-
-        animation:
-            float 4s ease-in-out infinite,
-            glow 4s ease-in-out infinite;
+            0 8px 25px rgba(15, 23, 42, 0.08);
 
         transition:
             transform 0.35s ease,
             box-shadow 0.35s ease;
-    }
 
-    .team-card:nth-child(1) {
-        border-top: 4px solid #6366f1;
+        animation: hxFloat 4s ease-in-out infinite;
     }
 
     .team-card:nth-child(2) {
-        border-top: 4px solid #8b5cf6;
-        animation-delay: 0.3s;
+        animation-delay: 0.4s;
     }
 
     .team-card:nth-child(3) {
-        border-top: 4px solid #ec4899;
-        animation-delay: 0.6s;
+        animation-delay: 0.8s;
     }
 
     .team-card:nth-child(4) {
-        border-top: 4px solid #06b6d4;
-        animation-delay: 0.9s;
-    }
-
-    .team-card:nth-child(5) {
-        border-top: 4px solid #f59e0b;
         animation-delay: 1.2s;
     }
 
+    .team-card:nth-child(5) {
+        animation-delay: 1.6s;
+    }
+
     .team-card:nth-child(6) {
-        border-top: 4px solid #10b981;
-        animation-delay: 1.5s;
+        animation-delay: 2s;
     }
 
     .team-card:hover {
-        transform: translateY(-14px) scale(1.04);
+        transform: translateY(-10px) scale(1.03);
 
         box-shadow:
-            0 20px 50px rgba(99,102,241,0.25);
+            0 18px 40px rgba(99, 102, 241, 0.22);
     }
 
-    .team-card::after {
+    .team-card:before {
         content: "";
 
         position: absolute;
-
         top: 0;
-        left: -120%;
+        left: -100%;
 
-        width: 60%;
-        height: 100%;
-
-        transform: skewX(-25deg);
+        width: 100%;
+        height: 4px;
 
         background: linear-gradient(
             90deg,
-            transparent,
-            rgba(255,255,255,0.55),
-            transparent
+            #6366f1,
+            #8b5cf6,
+            #ec4899,
+            #06b6d4
         );
 
-        animation: shine 4s infinite;
+        animation: hxShine 3s linear infinite;
     }
 
     .member-icon {
-        position: relative;
-        z-index: 2;
-
-        font-size: 42px;
-
-        margin-bottom: 12px;
-
-        animation: float 3s ease-in-out infinite;
+        font-size: 34px;
+        margin-bottom: 8px;
     }
 
     .member-name {
-        position: relative;
-        z-index: 2;
-
-        font-size: 20px;
-
+        font-size: 18px;
         font-weight: 800;
-
         color: #1e293b;
     }
 
     .member-role {
-        position: relative;
-        z-index: 2;
-
-        margin-top: 7px;
-
+        margin-top: 5px;
         font-size: 13px;
-
         font-weight: 700;
-
         color: #7c3aed;
-
-        text-transform: uppercase;
-
-        letter-spacing: 0.8px;
     }
 
-    /* ================================
-       FOOTER
-       ================================ */
+
+    /* ---------- FOOTER ---------- */
 
     .hx-footer {
-        position: relative;
-
-        overflow: hidden;
+        margin-top: 60px;
+        padding: 30px 20px;
 
         text-align: center;
 
-        margin-top: 75px;
-
-        padding: 40px 20px;
-
-        border-radius: 28px;
+        border-radius: 24px;
 
         background: linear-gradient(
             120deg,
             #eef2ff,
             #f5e8ff,
             #fce7f3,
-            #e0f2fe
+            #e0f7fa
         );
 
-        background-size: 400% 400%;
+        background-size: 300% 300%;
+        animation: hxGradient 8s ease infinite;
 
-        animation: gradientFlow 8s ease infinite;
-
-        border: 1px solid rgba(139,92,246,0.25);
+        border: 1px solid rgba(99, 102, 241, 0.20);
 
         box-shadow:
-            0 15px 45px rgba(99,102,241,0.14);
+            0 10px 30px rgba(99, 102, 241, 0.10);
     }
 
     .footer-title {
-        position: relative;
-        z-index: 2;
-
-        font-size: 30px;
-
+        font-size: 25px;
         font-weight: 900;
-
-        background: linear-gradient(
-            90deg,
-            #4f46e5,
-            #9333ea,
-            #db2777,
-            #0891b2
-        );
-
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #6366f1;
     }
 
     .footer-text {
-        position: relative;
-        z-index: 2;
-
-        margin-top: 8px;
-
-        font-size: 15px;
-
+        margin-top: 7px;
         color: #475569;
+        font-size: 14px;
     }
 
     .footer-tagline {
-        position: relative;
-        z-index: 2;
-
-        margin-top: 15px;
-
+        margin-top: 12px;
         font-size: 14px;
-
         font-weight: 700;
-
-        color: #7c3aed;
-
-        letter-spacing: 1px;
+        color: #8b5cf6;
     }
 
     .footer-copy {
-        position: relative;
-        z-index: 2;
-
-        margin-top: 20px;
-
+        margin-top: 12px;
         font-size: 12px;
-
         color: #94a3b8;
     }
 
-    /* ================================
-       MOBILE
-       ================================ */
 
-    @media (max-width: 800px) {
+    /* ---------- ANIMATIONS ---------- */
+
+    @keyframes hxGradient {
+
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+
+    }
+
+    @keyframes hxFloat {
+
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-5px);
+        }
+
+    }
+
+    @keyframes hxShine {
+
+        0% {
+            left: -100%;
+        }
+
+        100% {
+            left: 100%;
+        }
+
+    }
+
+
+    /* ---------- MOBILE ---------- */
+
+    @media (max-width: 700px) {
 
         .hx-title {
-            font-size: 40px;
+            font-size: 36px;
         }
 
         .hx-subtitle {
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .team-grid {
@@ -489,7 +346,7 @@ st.markdown(
 
 
 # ============================================================
-# IMPORT PROJECT MODULES
+# IMPORT EXISTING PROJECT
 # ============================================================
 
 from ui import state
@@ -531,7 +388,7 @@ PAGES = {
 
 
 # ============================================================
-# INITIALIZE STATE
+# STATE
 # ============================================================
 
 state.init_state()
@@ -583,7 +440,7 @@ with st.sidebar.expander("Settings"):
 
 
 # ============================================================
-# SELECTED PAGE
+# SHOW SELECTED PAGE
 # ============================================================
 
 PAGES[choice]()
