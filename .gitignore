@@ -1,8 +1,7 @@
 __pycache__/
-*.py[cod]
+*.pyc
 .venv/
-venv/
-env/
 .env
-.streamlit/secrets.toml
-.DS_Store
+evidence_reports.json
+example_report.md
+.ipynb_checkpoints/
