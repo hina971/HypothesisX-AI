@@ -4,7 +4,12 @@ import pandas as pd
 from config import APP_NAME, APP_DESCRIPTION
 from utils.data_loader import load_data, clean_data
 from agents.orchestrator import OrchestratorAgent
+from agents.llm_reasoning import LLMReasoningAgent
 
+
+# ============================================================
+# PAGE CONFIGURATION
+# ============================================================
 
 st.set_page_config(
     page_title=APP_NAME,
@@ -13,9 +18,9 @@ st.set_page_config(
 )
 
 
-# -----------------------------
-# Header
-# -----------------------------
+# ============================================================
+# HEADER
+# ============================================================
 
 st.title("🔬 HypothesisX AI")
 
@@ -29,9 +34,9 @@ st.write(APP_DESCRIPTION)
 st.divider()
 
 
-# -----------------------------
-# Sidebar
-# -----------------------------
+# ============================================================
+# SIDEBAR
+# ============================================================
 
 st.sidebar.title("HypothesisX AI")
 
@@ -44,6 +49,8 @@ Data
 Data Exploration
 ↓
 Pattern Mining
+↓
+LLM Reasoning
 ↓
 Hypothesis
 ↓
@@ -61,10 +68,14 @@ Next Investigation
 """
 )
 
+st.sidebar.success(
+    "🤖 Generative AI reasoning is enabled."
+)
 
-# -----------------------------
-# File Upload
-# -----------------------------
+
+# ============================================================
+# FILE UPLOAD
+# ============================================================
 
 st.header("1️⃣ Upload Dataset")
 
@@ -74,15 +85,16 @@ uploaded_file = st.file_uploader(
 )
 
 
-# -----------------------------
-# Load Data
-# -----------------------------
+# ============================================================
+# LOAD DATA
+# ============================================================
 
 if uploaded_file is not None:
 
     try:
 
         df = load_data(uploaded_file)
+
         df = clean_data(df)
 
         st.success(
@@ -97,9 +109,10 @@ if uploaded_file is not None:
             use_container_width=True
         )
 
-        # -----------------------------
-        # Run Analysis
-        # -----------------------------
+
+        # ====================================================
+        # RUN ANALYSIS
+        # ====================================================
 
         if st.button(
             "🚀 Start Hypothesis Discovery",
@@ -129,9 +142,9 @@ if uploaded_file is not None:
         st.exception(e)
 
 
-# -----------------------------
-# Results
-# -----------------------------
+# ============================================================
+# RESULTS
+# ============================================================
 
 if "results" in st.session_state:
 
@@ -142,9 +155,9 @@ if "results" in st.session_state:
     st.header("📊 HypothesisX AI Results")
 
 
-    # -----------------------------
-    # Data Explorer
-    # -----------------------------
+    # ========================================================
+    # DATA EXPLORER
+    # ========================================================
 
     st.subheader("2️⃣ Data Explorer")
 
@@ -172,6 +185,7 @@ if "results" in st.session_state:
         len(exploration["numeric_columns"])
     )
 
+
     st.write("### Variable Types")
 
     st.write(
@@ -183,6 +197,11 @@ if "results" in st.session_state:
         "Categorical:",
         exploration["categorical_columns"]
     )
+
+
+    # ========================================================
+    # MISSING VALUES
+    # ========================================================
 
     if exploration["missing_values"]:
 
@@ -210,11 +229,13 @@ if "results" in st.session_state:
         )
 
 
-    # -----------------------------
-    # Statistics
-    # -----------------------------
+    # ========================================================
+    # DESCRIPTIVE STATISTICS
+    # ========================================================
 
-    st.subheader("Descriptive Statistics")
+    st.subheader(
+        "Descriptive Statistics"
+    )
 
     if not exploration["statistics"].empty:
 
@@ -224,9 +245,9 @@ if "results" in st.session_state:
         )
 
 
-    # -----------------------------
-    # Pattern Mining
-    # -----------------------------
+    # ========================================================
+    # PATTERN MINING
+    # ========================================================
 
     st.subheader("3️⃣ Pattern Mining")
 
@@ -248,12 +269,13 @@ if "results" in st.session_state:
         for pattern in patterns[:5]:
 
             st.info(
-                f"**{pattern['variable_1']} ↔ "
-                f"{pattern['variable_2']}**  \n"
-                f"Correlation: "
-                f"{pattern['correlation']}  \n"
-                f"P-value: "
-                f"{pattern['p_value']}"
+                f"""
+**{pattern['variable_1']} ↔ {pattern['variable_2']}**
+
+Correlation: {pattern['correlation']}
+
+P-value: {pattern['p_value']}
+"""
             )
 
     else:
@@ -263,11 +285,80 @@ if "results" in st.session_state:
         )
 
 
-    # -----------------------------
-    # Hypotheses
-    # -----------------------------
+    # ========================================================
+    # LLM REASONING
+    # ========================================================
 
-    st.subheader("4️⃣ Generated Hypotheses")
+    st.subheader(
+        "4️⃣ 🤖 LLM Hypothesis Reasoning"
+    )
+
+    if patterns:
+
+        try:
+
+            llm_agent = LLMReasoningAgent()
+
+            strongest_pattern = patterns[0]
+
+            sample_size = exploration["rows"]
+
+            with st.spinner(
+                "🤖 LLM is interpreting the strongest discovered pattern..."
+            ):
+
+                llm_reasoning = (
+                    llm_agent.generate_reasoning(
+                        variable_1=strongest_pattern[
+                            "variable_1"
+                        ],
+                        variable_2=strongest_pattern[
+                            "variable_2"
+                        ],
+                        correlation=strongest_pattern[
+                            "correlation"
+                        ],
+                        p_value=strongest_pattern[
+                            "p_value"
+                        ],
+                        sample_size=sample_size
+                    )
+                )
+
+            st.success(
+                "LLM reasoning generated successfully!"
+            )
+
+            st.markdown(
+                llm_reasoning
+            )
+
+            st.session_state[
+                "llm_reasoning"
+            ] = llm_reasoning
+
+        except Exception as e:
+
+            st.error(
+                "LLM reasoning could not be completed."
+            )
+
+            st.exception(e)
+
+    else:
+
+        st.info(
+            "LLM reasoning requires at least one discovered pattern."
+        )
+
+
+    # ========================================================
+    # PROGRAMMATIC HYPOTHESES
+    # ========================================================
+
+    st.subheader(
+        "5️⃣ Generated Hypotheses"
+    )
 
     hypotheses = results["hypotheses"]
 
@@ -295,12 +386,12 @@ if "results" in st.session_state:
         )
 
 
-    # -----------------------------
-    # Alternative Explanations
-    # -----------------------------
+    # ========================================================
+    # ALTERNATIVE EXPLANATIONS
+    # ========================================================
 
     st.subheader(
-        "5️⃣ Alternative Explanations"
+        "6️⃣ Alternative Explanations"
     )
 
     alternatives = results["alternatives"]
@@ -325,12 +416,12 @@ if "results" in st.session_state:
                 )
 
 
-    # -----------------------------
-    # Statistical Testing
-    # -----------------------------
+    # ========================================================
+    # STATISTICAL TESTING
+    # ========================================================
 
     st.subheader(
-        "6️⃣ Statistical Validation"
+        "7️⃣ Statistical Validation"
     )
 
     statistical_results = results[
@@ -349,12 +440,12 @@ if "results" in st.session_state:
         )
 
 
-    # -----------------------------
-    # ML Validation
-    # -----------------------------
+    # ========================================================
+    # ML VALIDATION
+    # ========================================================
 
     st.subheader(
-        "7️⃣ ML Validation"
+        "8️⃣ ML Validation"
     )
 
     ml_results = results[
@@ -411,12 +502,12 @@ if "results" in st.session_state:
             )
 
 
-    # -----------------------------
-    # Robustness
-    # -----------------------------
+    # ========================================================
+    # ROBUSTNESS
+    # ========================================================
 
     st.subheader(
-        "8️⃣ Robustness Testing"
+        "9️⃣ Robustness Testing"
     )
 
     robustness = results[
@@ -441,12 +532,12 @@ if "results" in st.session_state:
         )
 
 
-    # -----------------------------
-    # Evidence Review
-    # -----------------------------
+    # ========================================================
+    # EVIDENCE REVIEW
+    # ========================================================
 
     st.subheader(
-        "9️⃣ Evidence Review"
+        "🔟 Evidence Review"
     )
 
     evidence = results[
@@ -496,12 +587,12 @@ if "results" in st.session_state:
             )
 
 
-    # -----------------------------
-    # Next Investigation
-    # -----------------------------
+    # ========================================================
+    # NEXT INVESTIGATION
+    # ========================================================
 
     st.subheader(
-        "🔟 Recommended Next Investigation"
+        "1️⃣1️⃣ Recommended Next Investigation"
     )
 
     st.success(
@@ -509,9 +600,9 @@ if "results" in st.session_state:
     )
 
 
-    # -----------------------------
-    # Download Report
-    # -----------------------------
+    # ========================================================
+    # DOWNLOAD REPORT
+    # ========================================================
 
     st.subheader(
         "📥 Export Results"
@@ -554,7 +645,7 @@ if "results" in st.session_state:
     report_lines.append("")
 
     report_lines.append(
-        "HYPOTHESES"
+        "PROGRAMMATIC HYPOTHESES"
     )
 
     for hypothesis in hypotheses:
@@ -563,6 +654,19 @@ if "results" in st.session_state:
             f"- {hypothesis['id']}: "
             f"{hypothesis['hypothesis']}"
         )
+
+    report_lines.append("")
+
+    report_lines.append(
+        "LLM REASONING"
+    )
+
+    report_lines.append(
+        st.session_state.get(
+            "llm_reasoning",
+            "LLM reasoning not available."
+        )
+    )
 
     report_lines.append("")
 
