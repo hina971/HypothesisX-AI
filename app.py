@@ -10,56 +10,35 @@ st.set_page_config(
 
 
 # ============================================================
-# BEAUTIFUL UI STYLING
+# UI STYLING
 # ============================================================
 
 st.markdown(
     """
     <style>
 
-    /* ---------- MAIN HEADER ---------- */
-
+    /* MAIN HEADER */
     .hx-header {
         padding: 30px;
-        margin-bottom: 25px;
-        border-radius: 24px;
+        margin-bottom: 30px;
+        border-radius: 22px;
         text-align: center;
-
         background: linear-gradient(
             120deg,
             #eef2ff,
             #f5e8ff,
             #fce7f3,
-            #e0f7fa,
-            #eef2ff
+            #e0f7fa
         );
-
-        background-size: 300% 300%;
-        animation: hxGradient 8s ease infinite;
-
-        border: 1px solid rgba(99, 102, 241, 0.20);
-        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.12);
+        border: 1px solid #ddd6fe;
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.12);
     }
 
     .hx-title {
-        font-size: 48px;
+        font-size: 44px;
         font-weight: 900;
+        color: #4f46e5;
         margin-bottom: 8px;
-
-        background: linear-gradient(
-            90deg,
-            #4f46e5,
-            #7c3aed,
-            #db2777,
-            #0891b2
-        );
-
-        background-size: 300% auto;
-
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-
-        animation: hxGradient 5s ease infinite;
     }
 
     .hx-subtitle {
@@ -69,25 +48,13 @@ st.markdown(
     }
 
 
-    /* ---------- TEAM HEADING ---------- */
-
+    /* TEAM SECTION */
     .team-heading {
         margin-top: 55px;
         text-align: center;
-
         font-size: 30px;
         font-weight: 900;
-
-        background: linear-gradient(
-            90deg,
-            #4f46e5,
-            #9333ea,
-            #db2777,
-            #0891b2
-        );
-
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #6366f1;
     }
 
     .team-subheading {
@@ -98,9 +65,6 @@ st.markdown(
         font-size: 15px;
     }
 
-
-    /* ---------- TEAM GRID ---------- */
-
     .team-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -109,79 +73,13 @@ st.markdown(
         margin: 0 auto;
     }
 
-
-    /* ---------- TEAM CARD ---------- */
-
     .team-card {
-        position: relative;
-        overflow: hidden;
-
         text-align: center;
-
         padding: 25px 15px;
-
         border-radius: 20px;
-
-        background: rgba(255, 255, 255, 0.96);
-
-        border: 1px solid rgba(139, 92, 246, 0.20);
-
-        box-shadow:
-            0 8px 25px rgba(15, 23, 42, 0.08);
-
-        transition:
-            transform 0.35s ease,
-            box-shadow 0.35s ease;
-
-        animation: hxFloat 4s ease-in-out infinite;
-    }
-
-    .team-card:nth-child(2) {
-        animation-delay: 0.4s;
-    }
-
-    .team-card:nth-child(3) {
-        animation-delay: 0.8s;
-    }
-
-    .team-card:nth-child(4) {
-        animation-delay: 1.2s;
-    }
-
-    .team-card:nth-child(5) {
-        animation-delay: 1.6s;
-    }
-
-    .team-card:nth-child(6) {
-        animation-delay: 2s;
-    }
-
-    .team-card:hover {
-        transform: translateY(-10px) scale(1.03);
-
-        box-shadow:
-            0 18px 40px rgba(99, 102, 241, 0.22);
-    }
-
-    .team-card:before {
-        content: "";
-
-        position: absolute;
-        top: 0;
-        left: -100%;
-
-        width: 100%;
-        height: 4px;
-
-        background: linear-gradient(
-            90deg,
-            #6366f1,
-            #8b5cf6,
-            #ec4899,
-            #06b6d4
-        );
-
-        animation: hxShine 3s linear infinite;
+        background: #ffffff;
+        border: 1px solid #ddd6fe;
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
     }
 
     .member-icon {
@@ -203,16 +101,12 @@ st.markdown(
     }
 
 
-    /* ---------- FOOTER ---------- */
-
+    /* FOOTER */
     .hx-footer {
         margin-top: 60px;
         padding: 30px 20px;
-
         text-align: center;
-
-        border-radius: 24px;
-
+        border-radius: 22px;
         background: linear-gradient(
             120deg,
             #eef2ff,
@@ -220,14 +114,8 @@ st.markdown(
             #fce7f3,
             #e0f7fa
         );
-
-        background-size: 300% 300%;
-        animation: hxGradient 8s ease infinite;
-
-        border: 1px solid rgba(99, 102, 241, 0.20);
-
-        box-shadow:
-            0 10px 30px rgba(99, 102, 241, 0.10);
+        border: 1px solid #ddd6fe;
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.10);
     }
 
     .footer-title {
@@ -256,55 +144,11 @@ st.markdown(
     }
 
 
-    /* ---------- ANIMATIONS ---------- */
-
-    @keyframes hxGradient {
-
-        0% {
-            background-position: 0% 50%;
-        }
-
-        50% {
-            background-position: 100% 50%;
-        }
-
-        100% {
-            background-position: 0% 50%;
-        }
-
-    }
-
-    @keyframes hxFloat {
-
-        0%, 100% {
-            transform: translateY(0);
-        }
-
-        50% {
-            transform: translateY(-5px);
-        }
-
-    }
-
-    @keyframes hxShine {
-
-        0% {
-            left: -100%;
-        }
-
-        100% {
-            left: 100%;
-        }
-
-    }
-
-
-    /* ---------- MOBILE ---------- */
-
+    /* MOBILE */
     @media (max-width: 700px) {
 
         .hx-title {
-            font-size: 36px;
+            font-size: 34px;
         }
 
         .hx-subtitle {
@@ -330,7 +174,6 @@ st.markdown(
 st.markdown(
     """
     <div class="hx-header">
-
         <div class="hx-title">
             🧠 HypothesisX AI
         </div>
@@ -338,7 +181,6 @@ st.markdown(
         <div class="hx-subtitle">
             Intelligent Hypothesis Generation &amp; Scientific Reasoning
         </div>
-
     </div>
     """,
     unsafe_allow_html=True
