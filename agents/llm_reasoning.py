@@ -16,7 +16,7 @@ class LLMReasoningAgent:
         # Load variables from .env
         load_dotenv()
 
-        api_key = os.getenv("OPENAI_API_KEY")
+        api_key = os.getenv("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")
 
         if not api_key:
             raise ValueError(
